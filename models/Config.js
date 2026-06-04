@@ -1,0 +1,27 @@
+const mongoose = require("mongoose");
+
+const ConfigSchema = new mongoose.Schema({
+  key: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  value: {
+    type: mongoose.Schema.Types.Mixed,
+    required: true
+  },
+  description: {
+    type: String,
+    trim: true
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+// Create index for efficient queries
+ConfigSchema.index({ key: 1 });
+
+module.exports = mongoose.model("Config", ConfigSchema);
